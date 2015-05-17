@@ -27,7 +27,7 @@
         return fileList;
       },
 
-      handleFileClick: function(path) {
+      handlePathChange: function(path) {
         this.setState({path: path});
       },
 
@@ -35,20 +35,27 @@
         var files = this.getFilesForPath(this.state.path);
         return (
           <div className="fileui_box">
-            <BreadcrumbBar />
+            <BreadcrumbBar repoName={this.props.repoName}
+                           path={this.state.path}
+                           onCrumbClick={this.handlePathChange} />
             <FileUITable files={files}
                          path={this.state.path}
-                         onFileClick={this.handleFileClick}/>
+                         onFileClick={this.handlePathChange} />
           </div>
         );
       }
     });
 
     var BreadcrumbBar = React.createClass({
+      handleCrumbClick: function(event) {
+        event.preventDefault();
+        this.props.onCrumbClick(event.target.dataset.path);
+      },
+
       render: function() {
         return (
           <div className="fileui_box-breadcrumb">
-            Breadcrumb Bar
+            <a href="" data-path="" onClick={this.handleCrumbClick}>{this.props.repoName}</a>
           </div>
         );
       }
@@ -96,7 +103,7 @@
     });
 
     React.render(
-      <FileUI files={files.benders.files} />,
+      <FileUI files={files.benders.files} repoName={Object.keys(files)[0]} />,
       document.getElementById("content")
     );
     </script>
