@@ -4,7 +4,8 @@
     <title>FUI</title>
     <link rel="stylesheet" href="style.css">
     <script src="react-0.13.3.js"></script>
-    <script src="JSXTransformer-0.13.3.js"></script>    
+    <script src="JSXTransformer-0.13.3.js"></script>
+    <script src="data.js"></script>
   </head>
   <body>
     <div id="content"></div>
@@ -15,7 +16,7 @@
         return (
           <div className="fileui_box">
             <BreadcrumbBar />
-            <FileUITable />
+            <FileUITable files={this.props.files} />
           </div>
         );
       }
@@ -33,10 +34,16 @@
 
     var FileUITable = React.createClass({
       render: function() {
+        var fileNodes = [];
+        for (var file in this.props.files) {
+          fileNodes.push(<FileUIRow key={this.props.files[file].name}
+                                    name={this.props.files[file].name}
+                                    modified={this.props.files[file].modified} />);
+        }
+
         return (
           <table className="fileui_box-table">
-            <FileUIRow name="bananaphone.txt" modified="2 days ago" />
-            <FileUIRow name="applestove.txt" modified="3 hours ago" />
+            {fileNodes}
           </table>
         );
       }
@@ -54,7 +61,7 @@
     });
 
     React.render(
-      <FileUI />,
+      <FileUI files={files.benders.files} />,
       document.getElementById("content")
     );
     </script>
