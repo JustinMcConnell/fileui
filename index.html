@@ -12,11 +12,18 @@
 
     <script type="text/jsx">
     var FileUI = React.createClass({
+      getInitialState: function() {
+        return {path: ""};
+      },
+      getFilesForPath: function(path) {
+        return this.props.files;
+      },
       render: function() {
+        var files = this.getFilesForPath(this.state.path);
         return (
           <div className="fileui_box">
             <BreadcrumbBar />
-            <FileUITable files={this.props.files} />
+            <FileUITable files={files} />
           </div>
         );
       }
