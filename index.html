@@ -14,8 +14,41 @@
       render: function() {
         return (
           <div className="fileui_box">
-            It works!
+            <BreadcrumbBar />
+            <FileUITable />
           </div>
+        );
+      }
+    });
+
+    var BreadcrumbBar = React.createClass({
+      render: function() {
+        return (
+          <div className="fileui_box-breadcrumb">
+            Breadcrumb Bar
+          </div>
+        );
+      }
+    });
+
+    var FileUITable = React.createClass({
+      render: function() {
+        return (
+          <table className="fileui_box-table">
+            <FileUIRow name="bananaphone.txt" modified="2 days ago" />
+            <FileUIRow name="applestove.txt" modified="3 hours ago" />
+          </table>
+        );
+      }
+    });
+
+    var FileUIRow = React.createClass({
+      render: function() {
+        return (
+          <tr className="fileui_box-row">
+            <td>{this.props.name}</td>
+            <td>{this.props.modified}</td>
+          </tr>
         );
       }
     });
