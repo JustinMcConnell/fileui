@@ -5,7 +5,14 @@ var files = {
       "fire": {
         "name": "fire",
         "modified": "2 days ago",
-        "directory": true
+        "directory": true,
+        "files": {
+          "zuko": {
+            "name": "zuko",
+            "modified": "1 month ago",
+            "content": "Zuko is the Crown Prince of the Fire Nation."
+          }
+        }
       },
       "water": {
         "name": "water",
