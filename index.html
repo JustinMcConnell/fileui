@@ -17,7 +17,14 @@
       },
 
       getFilesForPath: function(path) {
-        return this.props.files;
+        var fileList = this.props.files;
+        path.split("/").forEach(function(file) {
+          if (!file) {
+            return;
+          }
+          fileList = fileList[file].files;
+        });
+        return fileList;
       },
 
       handleFileClick: function(path) {
