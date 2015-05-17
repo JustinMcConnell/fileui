@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <title>FUI</title>
+    <script src="react-0.13.3.js"></script>
+    <script src="JSXTransformer-0.13.3.js"></script>    
+  </head>
+  <body>
+    <div id="content"></div>
+
+    <script type="text/jsx">
+    var FileUI = React.createClass({
+      render: function() {
+        return (
+          <div class="fileui-box">
+            It works!
+          </div>
+        );
+      }
+    });
+
+    React.render(
+      <FileUI />,
+      document.getElementById("content")
+    );
+    </script>
+  </body>
+</html>
