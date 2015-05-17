@@ -29,7 +29,9 @@
         return (
           <div className="fileui_box">
             <BreadcrumbBar />
-            <FileUITable files={files} onFileClick={this.handleFileClick}/>
+            <FileUITable files={files}
+                         path={this.state.path}
+                         onFileClick={this.handleFileClick}/>
           </div>
         );
       }
@@ -55,6 +57,7 @@
         for (var file in this.props.files) {
           fileNodes.push(<FileUIRow key={this.props.files[file].name}
                                     name={this.props.files[file].name}
+                                    path={this.props.path}
                                     modified={this.props.files[file].modified}
                                     onFileClick={this.handleFileClick} />);
         }
@@ -70,13 +73,15 @@
     var FileUIRow = React.createClass({
       handleChange: function(event) {
         event.preventDefault();
-        this.props.onFileClick(event.target.dataset.path);
+        this.props.onFileClick(event.target.dataset.path + this.props.name + "/");
       },
 
       render: function() {
         return (
           <tr className="fileui_box-row">
-            <td><a href="" data-path="fire" onClick={this.handleChange}>{this.props.name}</a></td>
+            <td>
+              <a href="" data-path={this.props.path} onClick={this.handleChange}>{this.props.name}</a>
+            </td>
             <td>{this.props.modified}</td>
           </tr>
         );
