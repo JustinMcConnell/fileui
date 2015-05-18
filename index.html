@@ -52,19 +52,25 @@
       },
 
       render: function() {
-        var runningPath = "";
+        // The path that an individual Breadcrumb leads to.
+        var breadcrumbPath = "";
+
         var breadcrumbNodes = this.props.path
           .split("/")
           .filter(function(name) {
             return name ? true : false;
           })
           .map(function(name, index, array) {
-            runningPath += "/" + name;
+            // The last Breadcrumb in the BreadcrumbBar shouldn't be a link.
+            var isLink = index < array.length - 1;
+
+            breadcrumbPath += "/" + name;
+
             return(
               <Breadcrumb name={name}
                           key={name}
-                          path={runningPath}
-                          isLink={index < array.length - 1}
+                          path={breadcrumbPath}
+                          isLink={isLink}
                           onCrumbClick={this.handleCrumbClick} />
             );
           }.bind(this));
