@@ -2,6 +2,10 @@ body {
   font-family: Helvetica, Arial, sans-serif;
 }
 
+.fileui_box-icon {
+  float: left;
+}
+
 @font-face {
   font-family: 'icomoon';
   src: url('icomoon.woff?-t3adze') format('woff');
@@ -17,8 +21,7 @@ body {
   text-transform: none;
   line-height: 1;
   margin-right: 5px;
-  float: left;
-
+ 
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
