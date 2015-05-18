@@ -36,6 +36,7 @@ a:visited {
   padding: 5px;
   border-bottom: 1px solid #ccc;
   background-color: #f8f8f8;
+  white-space: nowrap;
 }
 .fileui_box-row:last-child .fileui_box-cell {
   border-bottom: 0;
