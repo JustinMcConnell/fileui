@@ -60,7 +60,7 @@ a:visited {
 
 @font-face {
   font-family: 'icomoon';
-  src: url('icomoon.woff?-t3adze') format('woff');
+  src: url('../fonts/icomoon.woff?-t3adze') format('woff');
   font-weight: normal;
   font-style: normal;
 }
