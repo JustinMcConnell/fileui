@@ -107,7 +107,10 @@
         if (this.props.isLink) {
           return (
             <li className="fileui_box-breadcrumb">
-              <a href="" data-path={this.props.path} onClick={this.handleCrumbClick}>{this.props.name}</a>
+              <a className="fileui_box-breadcrumb_link"
+                 href=""
+                 data-path={this.props.path}
+                 onClick={this.handleCrumbClick}>{this.props.name}</a>
             </li>
           );
         } else {
@@ -155,13 +158,15 @@
 
         return (
           <tr className="fileui_box-row">
-            <td>
+            <td className="fileui_box-cell icon">
               {icon}
-              <a href="" data-path={this.props.path} onClick={this.handleChange}>
+            </td>
+            <td className="fileui_box-cell">
+              <a className="fileui_box-link" href="" data-path={this.props.path} onClick={this.handleChange}>
                 {this.props.name}
               </a>
             </td>
-            <td>{this.props.modified}</td>
+            <td className="fileui_box-cell modified">{this.props.modified}</td>
           </tr>
         );
       }
@@ -170,7 +175,7 @@
     var FileDisplay = React.createClass({
       render: function() {
         return (
-          <div>{this.props.content}</div>
+          <div className="fileui_box-file">{this.props.content}</div>
         );
       }
     });

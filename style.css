@@ -18,6 +18,37 @@ body {
 .fileui_box-breadcrumb:last-child:after {
   content: "";
 }
+.fileui_box-breadcrumb_link {
+  text-decoration: none;
+}
+.fileui_box-table {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-spacing: 0;
+}
+.fileui_box-cell {
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+  background-color: #f8f8f8;
+}
+.fileui_box-row:last-child .fileui_box-cell {
+  border-bottom: 0;
+}
+.fileui_box-cell.icon {
+  width: 16px;
+  padding-right: 0;
+}
+.fileui_box-cell.modified {
+  text-align: right;
+}
+.fileui_box-link {
+  display: block;
+}
+.fileui_box-file {
+  padding: 5px;
+  border: 1px solid #ccc;
+  background-color: #f8f8f8;
+}
 
 @font-face {
   font-family: 'icomoon';
