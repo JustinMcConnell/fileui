@@ -42,7 +42,7 @@ var files = {
       "aang": {
         "name": "aang",
         "modified": "10 minutes ago",
-        "content": "Aang is the Avatar and a total badass."
+        "content": "Aang is the Avatar and a total badass. ThisIsAReallyLongSentanceToShowThatTheFileDisplayComponentHandlesReallyWideContent,ThisIsAReallyLongSentanceToShowThatTheFileDisplayComponentHandlesReallyWideContent"
       } 
     }
   }
