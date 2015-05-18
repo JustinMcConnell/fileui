@@ -16,15 +16,18 @@
         return {path: ""};
       },
 
-      getFilesForPath: function(path) {
-        var fileList = this.props.files;
+      getDataForPath: function(path) {
+        var topLevelDirectory = Object.keys(this.props.files)[0];
+        var fileObj = this.props.files[topLevelDirectory];
+        var fileList = fileObj.files;
         path.split("/").forEach(function(file) {
           if (!file) {
             return;
           }
-          fileList = fileList[file].files;
+          fileObj = fileList[file];
+          fileList = fileObj.files;
         });
-        return fileList;
+        return fileObj;
       },
 
       handlePathChange: function(path) {
@@ -149,7 +152,7 @@
     });
 
     React.render(
-      <FileUI files={files.benders.files} repoName={Object.keys(files)[0]} />,
+      <FileUI files={files} repoName={Object.keys(files)[0]} />,
       document.getElementById("content")
     );
     </script>
