@@ -58,12 +58,13 @@
           .filter(function(name) {
             return name ? true : false;
           })
-          .map(function(name) {
+          .map(function(name, index, array) {
             runningPath += "/" + name;
             return(
               <Breadcrumb name={name}
                           key={name}
                           path={runningPath}
+                          isLink={index < array.length - 1}
                           onCrumbClick={this.handleCrumbClick} />
             );
           }.bind(this));
@@ -73,6 +74,7 @@
             <Breadcrumb name={this.props.repoName}
                         key={this.props.repoName}
                         path=""
+                        isLink={true}
                         onCrumbClick={this.handleCrumbClick} />
             {breadcrumbNodes}
           </ul>
@@ -87,9 +89,15 @@
       },
 
       render: function() {
-        return (
-          <li><a href="" data-path={this.props.path} onClick={this.handleCrumbClick}>{this.props.name}</a></li>
-        );
+        if (this.props.isLink) {
+          return (
+            <li><a href="" data-path={this.props.path} onClick={this.handleCrumbClick}>{this.props.name}</a></li>
+          );
+        } else {
+          return (
+            <li>{this.props.name}</li>
+          );
+        }
       }
     });
 
