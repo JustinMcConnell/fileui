@@ -158,4 +158,22 @@ describe("File UI", function() {
       expect(fileDisplay.getDOMNode().innerHTML.indexOf("Aang")).not.toBe(-1);
     });
   });
+
+  describe("Does not regress", function() {
+    /*
+     * Click a directory, click a file, click up one level in the breadcrumb.  The state 
+     * should not start with /.
+     */
+    it("Bug 1", function() {
+      var fileLinks, breadcrumbLinks;
+
+      fileLinks = TestUtils.scryRenderedDOMComponentsWithClass(appNode, "fileui_box-link");
+      TestUtils.Simulate.click(fileLinks[2]);
+      fileLinks = TestUtils.scryRenderedDOMComponentsWithClass(appNode, "fileui_box-link");
+      TestUtils.Simulate.click(fileLinks[0]);
+      breadcrumbLinks = TestUtils.scryRenderedDOMComponentsWithClass(appNode, "fileui_box-breadcrumb_link");
+      TestUtils.Simulate.click(breadcrumbLinks[1]);
+      expect(appNode.state.path).toBe("water/");
+    });
+  });
 });

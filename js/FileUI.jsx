@@ -69,7 +69,7 @@ var BreadcrumbBar = React.createClass({
         // The last Breadcrumb in the BreadcrumbBar shouldn't be a link.
         var isLink = index < array.length - 1;
 
-        breadcrumbPath += "/" + name;
+        breadcrumbPath += name + "/";
 
         return(
           <Breadcrumb name={name}
