@@ -1,3 +1,32 @@
 body {
   font-family: Helvetica, Arial, sans-serif;
 }
+
+@font-face {
+  font-family: 'icomoon';
+  src: url('icomoon.woff?-t3adze') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  margin-right: 5px;
+  float: left;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-file-text2:before {
+  content: "\e926";
+}
+.icon-folder:before {
+  content: "\e92f";
+  color: #80A6CD;
+}

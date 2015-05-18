@@ -35,7 +35,8 @@
       render: function() {
         var data = this.getDataForPath(this.state.path);
         var mainContent;
-        if (data.directory) {
+        // check for === true so we don't get false positive on a directory named "directory".
+        if (data.directory === true) {
           mainContent = <FileUITable files={data.files}
                                      path={this.state.path}
                                      onFileClick={this.handlePathChange} />
@@ -127,6 +128,7 @@
                                     name={this.props.files[file].name}
                                     path={this.props.path}
                                     modified={this.props.files[file].modified}
+                                    directory={this.props.files[file].directory === true}
                                     onFileClick={this.handleFileClick} />);
         }
 
@@ -145,10 +147,17 @@
       },
 
       render: function() {
+        var icon = this.props.directory ?
+                     <FileIcon className="icon-folder" /> :
+                     <FileIcon className="icon-file-text2" />;
+
         return (
           <tr className="fileui_box-row">
             <td>
-              <a href="" data-path={this.props.path} onClick={this.handleChange}>{this.props.name}</a>
+              {icon}
+              <a href="" data-path={this.props.path} onClick={this.handleChange}>
+                {this.props.name}
+              </a>
             </td>
             <td>{this.props.modified}</td>
           </tr>
@@ -160,6 +169,14 @@
       render: function() {
         return (
           <div>{this.props.content}</div>
+        );
+      }
+    });
+
+    var FileIcon = React.createClass({
+      render: function() {
+        return (
+          <span className={this.props.className}></span>
         );
       }
     });
