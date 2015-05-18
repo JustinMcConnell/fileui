@@ -48,15 +48,47 @@
 
     var BreadcrumbBar = React.createClass({
       handleCrumbClick: function(event) {
+        this.props.onCrumbClick.apply(undefined, arguments);
+      },
+
+      render: function() {
+        var runningPath = "";
+        var breadcrumbNodes = this.props.path
+          .split("/")
+          .filter(function(name) {
+            return name ? true : false;
+          })
+          .map(function(name) {
+            runningPath += "/" + name;
+            return(
+              <Breadcrumb name={name}
+                          key={name}
+                          path={runningPath}
+                          onCrumbClick={this.handleCrumbClick} />
+            );
+          }.bind(this));
+
+        return (
+          <ul className="fileui_box-breadcrumb">
+            <Breadcrumb name={this.props.repoName}
+                        key={this.props.repoName}
+                        path=""
+                        onCrumbClick={this.handleCrumbClick} />
+            {breadcrumbNodes}
+          </ul>
+        );
+      }
+    });
+
+    var Breadcrumb = React.createClass({
+      handleCrumbClick: function(event) {
         event.preventDefault();
         this.props.onCrumbClick(event.target.dataset.path);
       },
 
       render: function() {
         return (
-          <div className="fileui_box-breadcrumb">
-            <a href="" data-path="" onClick={this.handleCrumbClick}>{this.props.repoName}</a>
-          </div>
+          <li><a href="" data-path={this.props.path} onClick={this.handleCrumbClick}>{this.props.name}</a></li>
         );
       }
     });
