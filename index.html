@@ -16,6 +16,12 @@
         return {path: ""};
       },
 
+      componentDidMount: function() {
+        window.addEventListener("popstate", function(event) {
+          this.setState(event.state);
+        }.bind(this));
+      },
+
       getDataForPath: function(path) {
         var topLevelDirectory = Object.keys(this.props.files)[0];
         var data = this.props.files[topLevelDirectory];
@@ -29,7 +35,9 @@
       },
 
       handlePathChange: function(path) {
-        this.setState({path: path});
+        var newState = {path: path};
+        this.setState(newState);
+        window.history.pushState(newState, "", "#" + path);
       },
 
       render: function() {
