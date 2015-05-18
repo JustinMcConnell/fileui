@@ -18,16 +18,14 @@
 
       getDataForPath: function(path) {
         var topLevelDirectory = Object.keys(this.props.files)[0];
-        var fileObj = this.props.files[topLevelDirectory];
-        var fileList = fileObj.files;
-        path.split("/").forEach(function(file) {
-          if (!file) {
+        var data = this.props.files[topLevelDirectory];
+        path.split("/").forEach(function(pathSegment) {
+          if (!pathSegment) {
             return;
           }
-          fileObj = fileList[file];
-          fileList = fileObj.files;
+          data = data.files[pathSegment];
         });
-        return fileObj;
+        return data;
       },
 
       handlePathChange: function(path) {
@@ -44,6 +42,7 @@
         } else {
           mainContent = <FileDisplay content={data.content} />
         }
+
         return (
           <div className="fileui_box">
             <BreadcrumbBar repoName={this.props.repoName}
