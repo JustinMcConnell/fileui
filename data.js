@@ -1,6 +1,7 @@
 var files = {
   "benders": {
     "name": "benders",
+    "directory": true,
     "files": {
       "fire": {
         "name": "fire",
