@@ -85,7 +85,7 @@
           }.bind(this));
 
         return (
-          <ul className="fileui_box-breadcrumb">
+          <ul className="fileui_box-breadcrumb_bar">
             <Breadcrumb name={this.props.repoName}
                         key={this.props.repoName}
                         path=""
@@ -106,11 +106,13 @@
       render: function() {
         if (this.props.isLink) {
           return (
-            <li><a href="" data-path={this.props.path} onClick={this.handleCrumbClick}>{this.props.name}</a></li>
+            <li className="fileui_box-breadcrumb">
+              <a href="" data-path={this.props.path} onClick={this.handleCrumbClick}>{this.props.name}</a>
+            </li>
           );
         } else {
           return (
-            <li>{this.props.name}</li>
+            <li className="fileui_box-breadcrumb">{this.props.name}</li>
           );
         }
       }

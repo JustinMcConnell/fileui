@@ -5,6 +5,19 @@ body {
 .fileui_box-icon {
   float: left;
 }
+.fileui_box-breadcrumb_bar {
+  list-style-type: none;
+  padding-left: 0;
+}
+.fileui_box-breadcrumb {
+  display: inline;
+}
+.fileui_box-breadcrumb:after {
+  content: " / ";
+}
+.fileui_box-breadcrumb:last-child:after {
+  content: "";
+}
 
 @font-face {
   font-family: 'icomoon';
