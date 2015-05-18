@@ -35,15 +35,21 @@
       },
 
       render: function() {
-        var files = this.getFilesForPath(this.state.path);
+        var data = this.getDataForPath(this.state.path);
+        var mainContent;
+        if (data.directory) {
+          mainContent = <FileUITable files={data.files}
+                                     path={this.state.path}
+                                     onFileClick={this.handlePathChange} />
+        } else {
+          mainContent = <FileDisplay content={data.content} />
+        }
         return (
           <div className="fileui_box">
             <BreadcrumbBar repoName={this.props.repoName}
                            path={this.state.path}
                            onCrumbClick={this.handlePathChange} />
-            <FileUITable files={files}
-                         path={this.state.path}
-                         onFileClick={this.handlePathChange} />
+            {mainContent}
           </div>
         );
       }
@@ -147,6 +153,14 @@
             </td>
             <td>{this.props.modified}</td>
           </tr>
+        );
+      }
+    });
+
+    var FileDisplay = React.createClass({
+      render: function() {
+        return (
+          <div>{this.props.content}</div>
         );
       }
     });
