@@ -60,6 +60,10 @@ var FileUI = React.createClass({
     window.addEventListener("popstate", function(event) {
       this.setState(event.state);
     }.bind(this));
+
+    // Push a state with replaceState so the browser fires a popstate event when the user
+    // goes back to the initial page.
+    window.history.replaceState({path: ""}, "", "#");
   },
 
 
