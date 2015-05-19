@@ -13,7 +13,9 @@
  * is the hierarchy of test data:
  * benders
  *   earth
- *     toph
+ *     beifong
+ *       suyin
+ *       toph
  *   fire
  *     zuko
  *   water
@@ -27,12 +29,12 @@
  *
  * When FileUI is first rendered, path is empty so we show the contents of the bender directory.
  * When we click a file or directory, we add it's name to the path and re-render. If we click 
- * earth, then the path is set to "earth/" and we show the contents of the earth directory.  If
- * we then click toph, the path is set to "earth/toph/" and we show the contents of the toph file.
+ * fire, then the path is set to "fire/" and we show the contents of the fire directory.  If
+ * we then click zuko, the path is set to "earth/zuko/" and we show the contents of the zuko file.
  *
- * Clicking the links in the BreadcrumbBar work in a similar fashion.  If our path is "earth/toph/"
- * and we click the earth Breadcrumb then we set path to "earth/" and show the contents of the 
- * earth directory.  The function that is responsible for turning the path state into the correct
+ * The links in the BreadcrumbBar work in a similar fashion.  If our path is "fire/zuko/"
+ * and we click the fire Breadcrumb then we set path to "fire/" and show the contents of the 
+ * fire directory.  The function that is responsible for turning the path state into the correct
  * position in the data object is FileUI.getDataForState.
  */
 
@@ -62,7 +64,7 @@ var FileUI = React.createClass({
 
 
   /*
-   * Get the list of directory or file to display based on the current state.
+   * Get the directory or file to display based on the current state.
    * @parameter {object} The current state.
    * @return {object} Either a directory or file to display.
    */
@@ -217,7 +219,7 @@ var FileUITable = React.createClass({
    */
   removeALevelFromPath: function(path) {
     var newPath = path
-                  .replace(/\/$/, "")
+                  .replace(/\/$/, "") // Remove trailing slash.
                   .split("/")
                   .filter(function(segment, index, array) {
                      return (!segment || index >= array.length - 1) ? false: true
@@ -269,9 +271,12 @@ var FileUIRow = React.createClass({
     event.preventDefault();
 
     var newPath = event.target.dataset.path;
+    // Go up. New state when clicking a FileUIRow link is it's path plus it's name.
+    // God down. If this FileUIRow is a double dot link, the new state is just it's path.
     if (this.props.name != "..") {
       newPath += this.props.name + "/";
     }
+
     this.props.onFileClick(newPath);
   },
 
@@ -325,5 +330,5 @@ var FileDisplay = React.createClass({
 React.render(
   <FileUI files={files} repoName={Object.keys(files)[0]} />,
   document.getElementById("content"),
-  window.runTests
+  window.runTests // Jasmine tests
 );
