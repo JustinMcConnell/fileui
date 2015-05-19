@@ -1,3 +1,4 @@
+/* Global styles we only set for the index.html page that shows FileUI. */
 body {
   font-family: Helvetica, Arial, sans-serif;
 }
@@ -8,6 +9,7 @@ a:visited {
   color: blue;
 }
 
+/* Styles for FileUI and it's subcomponents. */
 .fileui_box-icon {
   float: left;
 }
@@ -58,6 +60,7 @@ a:visited {
   overflow-x: auto;
 }
 
+/* icomoon.io font icons. */
 @font-face {
   font-family: 'icomoon';
   src: url('../fonts/icomoon.woff?-t3adze') format('woff');

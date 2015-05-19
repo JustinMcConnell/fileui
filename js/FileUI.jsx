@@ -1,14 +1,71 @@
+/*
+ * Our React components.  This is the component hierarchy:
+ * FileUI
+ *   BreadcrumbBar
+ *     Breadcrumb
+ *   FileUITable
+ *     FileUIRow
+ *       FileIcon
+ *   FileIcon
+ *
+ * The data for our files and directories is stored in an object.  As expected,
+ * leaf nodes are files, while the rest of the nodes are directories.  The following
+ * is the hierarchy of test data:
+ * benders
+ *   earth
+ *     toph
+ *   fire
+ *     zuko
+ *   water
+ *     katara
+ *   aang
+ * See /js/data.js for a detailed description of the structure of the data.
+ *
+ * Our only state is the path to the currect file or directory.  Everything else can be
+ * computed.  FileUI owns this state since both BreadcrumbBar and FileUITable need access
+ * to it in order to render.
+ *
+ * When FileUI is first rendered, path is empty so we show the contents of the bender directory.
+ * When we click a file or directory, we add it's name to the path and re-render. If we click 
+ * earth, then the path is set to "earth/" and we show the contents of the earth directory.  If
+ * we then click toph, the path is set to "earth/toph/" and we show the contents of the toph file.
+ *
+ * Clicking the links in the BreadcrumbBar work in a similar fashion.  If our path is "earth/toph/"
+ * and we click the earth Breadcrumb then we set path to "earth/" and show the contents of the 
+ * earth directory.  The function that is responsible for turning the path state into the correct
+ * position in the data object is FileUI.getDataForState.
+ */
+
 var FileUI = React.createClass({
+  /*
+   * Our initial state is an empty path since we want to first view the top level directory.
+   * @parameter None
+   * @return {object} The inital state.
+   */
   getInitialState: function() {
     return {path: ""};
   },
 
+
+  /*
+   * We use the componentDidMount function to setup the listener that watches for popstate
+   * events.  When that happens, it means a user has used the browser's back/forward buttons
+   * and we should change the state and re-render.
+   * @parameter None
+   * @return Nothing
+   */
   componentDidMount: function() {
     window.addEventListener("popstate", function(event) {
       this.setState(event.state);
     }.bind(this));
   },
 
+
+  /*
+   * Get the list of directory or file to display based on the current state.
+   * @parameter {object} The current state.
+   * @return {object} Either a directory or file to display.
+   */
   getDataForState: function(state) {
     var path = state.path;
     var topLevelDirectory = Object.keys(this.props.files)[0];
@@ -22,11 +79,18 @@ var FileUI = React.createClass({
     return data;
   },
 
+
+  /*
+   * The user has performed an action that has changed the path so a state change is required.
+   * @parameter {string} The new path to add to the state.
+   * @return Nothing
+   */
   handlePathChange: function(path) {
     var newState = {path: path};
     this.setState(newState);
     window.history.pushState(newState, "", "#" + path);
   },
+
 
   render: function() {
     var data = this.getDataForState(this.state);
@@ -51,18 +115,28 @@ var FileUI = React.createClass({
   }
 });
 
+
 var BreadcrumbBar = React.createClass({
-  handleCrumbClick: function(event) {
+  /*
+   * This just passes data from below BreadcrumbBar to above BreadcrumbBar.
+   * @parameter Implicit -- just passes the arguments variable up.
+   * @return Nothing
+   */
+  handleCrumbClick: function() {
     this.props.onCrumbClick.apply(undefined, arguments);
   },
 
+
   render: function() {
-    // The path that an individual Breadcrumb leads to.
+    // The path that an individual Breadcrumb leads to.  We will be adding to this string
+    // as we iterate through each Breadcrumb.
     var breadcrumbPath = "";
 
+    // Generate Breadcrumbs for every part of the path.  Does not include the top level Breadcrumb.
     var breadcrumbNodes = this.props.path
       .split("/")
       .filter(function(name) {
+        // Don't create Breadcrumbs for empty bits of the path.
         return name ? true : false;
       })
       .map(function(name, index, array) {
@@ -93,11 +167,18 @@ var BreadcrumbBar = React.createClass({
   }
 });
 
+
 var Breadcrumb = React.createClass({
+  /*
+   * User clicked a Breadcrumb so we must pass the new state up to whoever owns it.
+   * @parameter {object} The click event.
+   * @return Nothing
+   */
   handleCrumbClick: function(event) {
     event.preventDefault();
     this.props.onCrumbClick(event.target.dataset.path);
   },
+
 
   render: function() {
     if (this.props.isLink) {
@@ -117,10 +198,17 @@ var Breadcrumb = React.createClass({
   }
 });
 
+
 var FileUITable = React.createClass({
+  /*
+   * This just passes data from below FileUITable to above FileUITable.
+   * @parameter Implicit -- just passes the arguments variable up.
+   * @return Nothing
+   */
   handleFileClick: function() {
     this.props.onFileClick.apply(undefined, arguments);
   },
+
 
   render: function() {
     var fileNodes = [];
@@ -141,11 +229,18 @@ var FileUITable = React.createClass({
   }
 });
 
+
 var FileUIRow = React.createClass({
-  handleChange: function(event) {
+  /*
+   * User clicked a FileUIRow so we must pass the new state up to whoever owns it.
+   * @parameter {object} The click event.
+   * @return Nothing
+   */
+  handleRowClick: function(event) {
     event.preventDefault();
     this.props.onFileClick(event.target.dataset.path + this.props.name + "/");
   },
+
 
   render: function() {
     var icon = this.props.directory ?
@@ -158,23 +253,18 @@ var FileUIRow = React.createClass({
           {icon}
         </td>
         <td className="fileui_box-cell name">
-          <a className="fileui_box-link" href="" data-path={this.props.path} onClick={this.handleChange}>
+          <a className="fileui_box-link" href="" data-path={this.props.path} onClick={this.handleRowClick}>
             {this.props.name}
           </a>
         </td>
-        <td className="fileui_box-cell modified">{this.props.modified}</td>
+        <td className="fileui_box-cell modified">
+          {this.props.modified}
+        </td>
       </tr>
     );
   }
 });
 
-var FileDisplay = React.createClass({
-  render: function() {
-    return (
-      <div className="fileui_box-file">{this.props.content}</div>
-    );
-  }
-});
 
 var FileIcon = React.createClass({
   render: function() {
@@ -184,6 +274,20 @@ var FileIcon = React.createClass({
   }
 });
 
+
+var FileDisplay = React.createClass({
+  render: function() {
+    return (
+      <div className="fileui_box-file">{this.props.content}</div>
+    );
+  }
+});
+
+
+/*
+ * Our test data is stored in the global variable "files".  Given it's structure, the repository
+ * name is the first properties name.
+ */
 React.render(
   <FileUI files={files} repoName={Object.keys(files)[0]} />,
   document.getElementById("content"),

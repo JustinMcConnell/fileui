@@ -1,4 +1,6 @@
 /*
+ * These are jasmine tests for the React components in FileUI.jsx.
+ *
  * We know our test data has the following structure so we write the tests accordingly:
  * benders
  *   earth

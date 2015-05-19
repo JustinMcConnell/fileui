@@ -1,3 +1,21 @@
+/*
+ * Our test data.  In the real world we would generate this on the server.
+ *
+ * The general structure is that each directory is a hash of hashes.  If we
+ * have n files that are stored in directories that might be d levels deep,
+ * then we get O(d) runtime when traversing and searching for a given file or
+ * directory.  The data could have been stored as an array of hashes but, then
+ * we would get O(n) runtime when searching.  That would be slower than the O(d)
+ * runtime of the hash of hash structure because O(d) will probably be a lot
+ * closer to constant runtime.
+ *
+ * Each file and directory has name and modified properties.
+ *
+ * Each directory has a "directory" property that is set to true.  It also
+ * has a files hash that represents it's files and subdirectories.
+ *
+ * Each file has a content property, which represents the content of that file.
+ */
 var files = {
   "benders": {
     "name": "benders",
