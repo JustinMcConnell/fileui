@@ -23,13 +23,25 @@ var files = {
     "files": {
       "earth": {
         "name": "earth",
-        "modified": "1 day ago",
+        "modified": "Yesterday",
         "directory": true,
         "files": {
-          "toph": {
-            "name" : "toph",
-            "modified": "6 months ago",
-            "content": "Toph is an earth bender from the Beifong family."
+          "beifong": {
+            "name": "beifong",
+            "modified": "Yesterday",
+            "directory": true,
+            "files": {
+              "suyin": {
+                "name" : "suyin",
+                "modified": "6 months ago",
+                "content": "Suyin is an earth bender from the Beifong family and daughter to Toph."
+              },
+              "toph": {
+                "name" : "toph",
+                "modified": "6 months ago",
+                "content": "Toph is an earth bender from the Beifong family."
+              }
+            }
           }
         }
       },

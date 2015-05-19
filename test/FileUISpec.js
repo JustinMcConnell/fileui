@@ -90,7 +90,7 @@ describe("File UI", function() {
   it("Should show the correct modified date.", function() {
     var fileUITable = TestUtils.findRenderedDOMComponentWithClass(appNode, "fileui_box-table");
     var modifiedNodes = TestUtils.scryRenderedDOMComponentsWithClass(fileUITable, "modified");
-    expect(modifiedNodes[0].getDOMNode().innerHTML).toBe("1 day ago");
+    expect(modifiedNodes[0].getDOMNode().innerHTML).toBe("Yesterday");
   });
 
   describe("Can navigate to subdirectories", function() {
