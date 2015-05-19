@@ -210,8 +210,37 @@ var FileUITable = React.createClass({
   },
 
 
+  /*
+   * Take a path like a/b/c/ and remove c/.
+   * @parameter {string} The path to modify.
+   * @return {string} The modified path.
+   */
+  removeALevelFromPath: function(path) {
+    var newPath = path
+                  .replace(/\/$/, "")
+                  .split("/")
+                  .filter(function(segment, index, array) {
+                     return (!segment || index >= array.length - 1) ? false: true
+                   })
+                  .join("/");
+    return newPath ? newPath + "/" : "";
+  },
+
+
   render: function() {
     var fileNodes = [];
+
+    // If we're not at the top level directory, render a double dot link to go up one level.
+    if (this.props.path) {
+      var newPath = this.removeALevelFromPath(this.props.path);
+      fileNodes.push(<FileUIRow key=".."
+                                name=".."
+                                path={newPath}
+                                modified=""
+                                directory={true}
+                                onFileClick={this.handleFileClick} />);
+    }
+
     for (var file in this.props.files) {
       fileNodes.push(<FileUIRow key={this.props.files[file].name}
                                 name={this.props.files[file].name}
@@ -238,7 +267,12 @@ var FileUIRow = React.createClass({
    */
   handleRowClick: function(event) {
     event.preventDefault();
-    this.props.onFileClick(event.target.dataset.path + this.props.name + "/");
+
+    var newPath = event.target.dataset.path;
+    if (this.props.name != "..") {
+      newPath += this.props.name + "/";
+    }
+    this.props.onFileClick(newPath);
   },
 
 

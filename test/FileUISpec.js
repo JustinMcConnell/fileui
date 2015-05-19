@@ -109,9 +109,9 @@ describe("File UI", function() {
       expect(breadcrumbs[1].getDOMNode().getElementsByTagName("a").length).toBe(0);
     });
 
-    it("Should have one FileUIRow.", function() {
+    it("Should have two FileUIRows.", function() {
       var fileUIRows = TestUtils.scryRenderedDOMComponentsWithClass(appNode, "fileui_box-row");
-      expect(fileUIRows.length).toBe(1);
+      expect(fileUIRows.length).toBe(2);
     });
   });
 
@@ -169,12 +169,18 @@ describe("File UI", function() {
     it("Bug 1", function() {
       var fileLinks, breadcrumbLinks;
 
+      // Click water directory
       fileLinks = TestUtils.scryRenderedDOMComponentsWithClass(appNode, "fileui_box-link");
       TestUtils.Simulate.click(fileLinks[2]);
+
+      // Click katara file
       fileLinks = TestUtils.scryRenderedDOMComponentsWithClass(appNode, "fileui_box-link");
-      TestUtils.Simulate.click(fileLinks[0]);
+      TestUtils.Simulate.click(fileLinks[1]);
+
+      // Click water breadcrumb
       breadcrumbLinks = TestUtils.scryRenderedDOMComponentsWithClass(appNode, "fileui_box-breadcrumb_link");
       TestUtils.Simulate.click(breadcrumbLinks[1]);
+
       expect(appNode.state.path).toBe("water/");
     });
   });
