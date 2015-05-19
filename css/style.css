@@ -2,14 +2,19 @@
 body {
   font-family: Helvetica, Arial, sans-serif;
 }
-a {
-  color: #4183c4;
-}
-a:visited {
-  color: blue;
-}
 
 /* Styles for FileUI and it's subcomponents. */
+.fileui_box a {
+  color: #4183c4;
+  text-decoration: none;
+}
+.fileui_box a:visited {
+  color: #4183c4;
+}
+.fileui_box a:hover,
+.fileui_box a:focus {
+  text-decoration: underline;
+}
 .fileui_box-icon {
   float: left;
 }
@@ -25,9 +30,6 @@ a:visited {
 }
 .fileui_box-breadcrumb:last-child:after {
   content: "";
-}
-.fileui_box-breadcrumb_link {
-  text-decoration: none;
 }
 .fileui_box-table {
   width: 100%;
